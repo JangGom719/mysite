@@ -6,13 +6,22 @@ from .forms import QuestionForm, AnswerForm
 
 def index(request):
     question_list = Question.objects.order_by('-create_date')
+    # Dao 개념
+    # question_list = SELECT * FROM Question Order by create_date
     context = {'question_list': question_list}
+    # context = dao.question_list
     return render(request, 'pybo/question_list.html', context)
+    # model.addattribute( "question_list" , context )
+    # return "pybo/question_list.html"
+
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     context = {'question': question}
     return render(request, 'pybo/question_detail.html', context)
+
+    # question = SELECT * FROM Question WHERE question_id = pk
+    # get_object_or_404 >> 데이터 없을 시 404 에러
 
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

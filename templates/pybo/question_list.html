@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>질문 리스트</title>
 </head>
 {% extends 'base.html' %}
 {% block content %}
@@ -19,10 +19,13 @@
         <tbody>
         {% if question_list %}
         {% for question in question_list %}
+<!--   <c:foreach items="${question_list}" var="question">     -->
         <tr>
             <td>{{ forloop.counter }}</td>
+            <!-- for루프를 1부터 순서대로 (Auto Increase) -->
             <td>
                 <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+<!--            <onclick="javascript:window.location='detail?pk=${question.id}'"    -->
                   {% if question.answer_set.count > 0 %}
                  <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
                   {% endif %}
@@ -30,11 +33,16 @@
             <td>{{ question.create_date }}</td>
         </tr>
         {% endfor %}
+<!--    </c:foreach>    -->
+
         {% else %}
         <tr>
             <td colspan="3">질문이 없습니다.</td>
         </tr>
+<!--    ${question_list}가 없을 경우    -->
+
         {% endif %}
+
         </tbody>
     </table>
     <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
